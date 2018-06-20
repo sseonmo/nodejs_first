@@ -1,0 +1,3 @@
+- url module
+let url 	= require('url');
+let queryData = url.parse(_url, true).query;	//querystring 추출
