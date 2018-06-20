@@ -1,3 +1,11 @@
 - url module
 let url 	= require('url');
 let queryData = url.parse(_url, true).query;	//querystring 추출
+
+pm2 : production process manager
+설치 - npm install -p pm2
+
+ 실행 - pm2 start main.js(프로그램명) --watch(실시간반영)
+ 종료 - pm2 stop main.js(프로그램명)
+ 모니터링 - pm2 monit
+ 로그확인 - pm2 log
