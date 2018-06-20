@@ -1,7 +1,7 @@
 // module
-let http = require('http');
-let fs = require('fs');
-let url = require('url');
+let http 	= require('http');
+let fs 		= require('fs');
+let url 	= require('url');
 
 var app = http.createServer(function (request, response) {
 	let _url = request.url;
@@ -17,7 +17,28 @@ var app = http.createServer(function (request, response) {
 		if(!Boolean(queryData.id)){
 			title = 'Welcome';
 			let description ='Hello, Node.js';
+			/*
+			let list = `<ul>
+							<li><a href="/?id=HTML">HTML</a></li>
+							<li><a href="/?id=CSS">CSS</a></li>
+							<li><a href="/?id=javascript">JavaScript</a></li>
+						  </ul>`;*/
 
+			let list= '<ul>';
+
+			fs.readdir('./data', (err, files) => {
+				console.log(files);
+				files.forEach( f => {
+					list += `<li><a href='/?id=${f}'>HTML</a></li>`;
+					console.log(list);
+				});
+
+				list = list + '</ul>';
+			});
+
+
+
+			console.log(list);
 			let template = `
 					<!doctype html>
 						<html>
@@ -27,11 +48,7 @@ var app = http.createServer(function (request, response) {
 						</head>
 						<body>
 						  <h1><a href="/">WEB</a></h1>
-						  <ul>
-							<li><a href="/?id=HTML">HTML</a></li>
-							<li><a href="/?id=CSS">CSS</a></li>
-							<li><a href="/?id=javascript">JavaScript</a></li>
-						  </ul>
+						  ${list}
 						  <h2>${title}</h2>
 						  </p>${description}</p>
 						</body>
@@ -70,9 +87,6 @@ var app = http.createServer(function (request, response) {
 		response.writeHead(404);
 		response.end('Not found');
 	}
-
-
-
 
 });
 
